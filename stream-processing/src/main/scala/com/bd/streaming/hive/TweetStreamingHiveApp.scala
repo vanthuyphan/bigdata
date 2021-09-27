@@ -51,7 +51,7 @@ object TweetStreamingHiveApp {
       Subscribe[String, String](topics, kafkaParams)
     )
 
-    sqlContext.sql("CREATE TABLE IF NOT EXISTS Tweets (tweetId String, content STRING, userId STRING) USING HIVE")
+    sqlContext.sql("CREATE TABLE IF NOT EXISTS tweets (tweetId String, content STRING, userId STRING) USING HIVE")
 
     stream.map(record => record.value()).map(value => jsonMapper().readValue(value, classOf[Bundle]))
       .map(bundle => {
@@ -64,7 +64,7 @@ object TweetStreamingHiveApp {
       }).foreachRDD(rdd => {
       import sqlContext.implicits._
       rdd.flatMap(item => item.toList).toDF().write.mode(SaveMode.Append).format("hive")
-        .saveAsTable("Tweets")
+        .saveAsTable("tweets")
     })
 
     ssc.start() // Start the computation
