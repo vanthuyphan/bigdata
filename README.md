@@ -26,21 +26,19 @@ Run spark-submit `spark-submit.sh` to submit a job to spark to consume data
 Exec to hive and run query to check table tweets
 ```cmd
 docker exec -it hive-metadata sh
-```
-### Verify via hdfs
-
-``docker exec -it namenode bash``
-, then list all files in the folder 
-`/user/hive/warehouse/tweets` 
-
-```cmd
-hdfs dfs -ls /user/hive/warehouse/tweets
+hive
+show tables;
+select * from tweets
 ```
 
-Notice
+Extra
 =======
  
 I used [https://github.com/big-data-europe](https://github.com/big-data-europe) 
 as a bootstrap project
+
+Demo video
+https://www.youtube.com/watch?v=9DUS0XQYvVI
+
 
 
